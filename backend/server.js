@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-app.get("./events", (req, res) => {
-  const events = require("./data/sportData.json");
+app.get("/events", (req, res) => {
+  const events = require("./sportData.json");
   res.json(events);
 });
 

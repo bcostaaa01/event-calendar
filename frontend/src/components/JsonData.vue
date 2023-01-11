@@ -12,10 +12,10 @@ export default {
       events: [],
     };
   },
-  mounted() {
-    fetch("data/sportData.json").then((data) => {
-      this.events = data;
-    });
-  },
+  // mounted() {
+  //   fetch("data/sportData.json").then((data) => {
+  //     this.events = data;
+  //   });
+  // },
 };
 </script>
