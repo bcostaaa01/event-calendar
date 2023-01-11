@@ -1,18 +1,27 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
+import axios from "axios";
 
 export default createStore({
   state: {
-    events: []
+    events: [],
   },
   getters: {
+    events: (state) => state.events,
   },
   mutations: {
+    SET_EVENTS(state, events) {
+      state.events = events;
+    },
   },
   actions: {
-    // async fetchEvents({commit}) {
-    //   const response = await axios.get('http://localhost:3000/events')
-    // }
+    async fetchEvents({ commit }) {
+      try {
+        const { data } = await axios.get("http://localhost:3000/events");
+        commit("SET_EVENTS", data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
-  modules: {
-  }
-})
+  modules: {},
+});

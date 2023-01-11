@@ -1,21 +1,24 @@
 <template>
-  <div>
-    {{ events }}
+  <div v-for="event in events" :key="event.id">
+    {{ event }}
   </div>
 </template>
 
 <script>
+// import store from "@/store/index";
+import { mapState } from "vuex";
+
 export default {
   name: "JsonData",
-  data() {
-    return {
-      events: [],
-    };
+  // store,
+  computed: {
+    // events() {
+    //   return store.state.events;
+    // },
+    ...mapState(["events"]),
   },
-  // mounted() {
-  //   fetch("data/sportData.json").then((data) => {
-  //     this.events = data;
-  //   });
-  // },
+  created() {
+    this.$store.dispatch("fetchEvents");
+  },
 };
 </script>
