@@ -1,32 +1,27 @@
 <template>
   <div id="calendar">
-    <!-- {{ formattedEvents }} -->
     <div v-for="event in formattedEvents" :key="event.id">
       <div id="cal-event">
         <p v-if="event.homeTeam">{{ event.homeTeam.name }}</p>
         <p v-if="event.awayTeam">{{ event.awayTeam.name }}</p>
         <p>Date: {{ event.date }}</p>
-        <p>Time: {{ event.timeVenueUTC }}</p>
-        <!-- <p v-if="">Away Team: </p> -->
+        <p>Time: {{ event.time }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import VueCal from "vue-cal";
 import "vue-cal/dist/vuecal.css";
 
 export default {
   name: "EventCalendar",
-  // components: {
-  //   VueCal,
-  // },
   computed: {
     formattedEvents() {
       return this.$store.state.events.map((event) => {
         return {
           season: event.season,
+          time: event.timeVenueUTC,
           date: event.dateVenue,
           homeTeam: event.homeTeam,
           awayTeam: event.awayTeam,
