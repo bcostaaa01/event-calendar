@@ -13,8 +13,10 @@
       <tbody>
         <tr v-for="event in events" :key="event.id" @click="showDetails(event)">
           <td>{{ event.dateVenue }}</td>
-          <td>{{ (event.homeTeam && event.homeTeam.name) || "No team" }}</td>
-          <td>{{ event.awayTeam.name && event.awayTeam.name }}</td>
+          <td>{{ (event.homeTeam && event.homeTeam.name) || "No data" }}</td>
+          <td>
+            {{ (event.awayTeam.name && event.awayTeam.name) || "No data" }}
+          </td>
           <td>{{ event.timeVenueUTC }}</td>
         </tr>
       </tbody>
@@ -89,15 +91,15 @@ tr:nth-child(even) {
 .card {
   background-color: #fff;
   padding: 25px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   width: 50%;
   margin: auto;
-  margin-top: 50px; 
+  margin-top: 50px;
 }
 
 .card-header {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 15px;
   text-align: center;
@@ -106,5 +108,4 @@ tr:nth-child(even) {
 .card-body {
   padding: 20px;
 }
-
 </style>
