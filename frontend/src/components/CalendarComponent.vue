@@ -4,29 +4,34 @@
       <thead>
         <tr>
           <th>Date</th>
-          <th>Title</th>
+          <th>Home Team</th>
+          <th>Away Team</th>
           <th>Time</th>
-          <th>Result</th>
-          <th>Championship</th>
         </tr>
       </thead>
-      <tbody>
-        <tr v-for="event in events" :key="event.id">
-          <td>{{ event.dateVenue }}</td>
-          <td>{{ event.timeVenueUTC }}</td>
-          <td>
-            {{ event.homeTeam && event.homeTeam.name }} -
-            {{ event.awayTeam && event.awayTeam.name }}
-          </td>
 
-          <td>
-            {{ event.result && event.result.homeGoals }} -
-            {{ event.result && event.result.awayGoals }}
-          </td>
-          <td>{{ event.originCompetitionName }}</td>
+      <tbody>
+        <tr v-for="event in events" :key="event.id" @click="showDetails(event)">
+          <td>{{ event.dateVenue }}</td>
+          <td>{{ (event.homeTeam && event.homeTeam.name) || "No team" }}</td>
+          <td>{{ event.awayTeam.name && event.awayTeam.name }}</td>
+          <td>{{ event.timeVenueUTC }}</td>
         </tr>
       </tbody>
     </table>
+    <div v-if="selectedEvent" class="card">
+      <h2>
+        {{ selectedEvent.homeTeam.name }} vs {{ selectedEvent.awayTeam.name }}
+      </h2>
+      <p>Date: {{ selectedEvent.dateVenue }}</p>
+      <p>Time: {{ selectedEvent.timeVenueUTC }}</p>
+      <p>Status: {{ selectedEvent.status }}</p>
+      <p>Stadium: {{ selectedEvent.stadium }}</p>
+      <p>
+        Result: {{ selectedEvent.result.homeGoals }} :
+        {{ selectedEvent.result.awayGoals }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -39,10 +44,19 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      selectedEvent: null,
+    };
+  },
+  methods: {
+    showDetails(event) {
+      this.selectedEvent = event;
+    },
+  },
 };
 </script>
-
-<style scoped>
+<style>
 table {
   border-collapse: collapse;
   width: 100%;
@@ -66,4 +80,33 @@ tr:nth-child(even) {
 .highlight {
   background-color: #ffc107;
 }
+
+.selected {
+  background-color: #ffc107;
+}
+
+.card {
+  background-color: #fff;
+  padding: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 50%;
+  margin: auto;
+  margin-top: 20px; /* this will add a margin on the top of the card */
+  margin-bottom: 20px; /* this will add a margin on the bottom of the card */
+  margin-left: 20px; /* this will add a margin on the left of the card */
+  margin-right: 20px; /* this will add a margin on */
+}
+
+.card-header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+.card-body {
+  padding: 20px;
+}
+
 </style>
