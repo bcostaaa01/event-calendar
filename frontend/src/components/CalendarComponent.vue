@@ -23,9 +23,7 @@
     </table>
     <div v-if="selectedEvent" class="card">
       <h2>
-        {{
-          selectedEvent.homeTeam ? selectedEvent.homeTeam.name : "No data"
-        }}
+        {{ selectedEvent.homeTeam ? selectedEvent.homeTeam.name : "No data" }}
         vs
         {{ selectedEvent.awayTeam ? selectedEvent.awayTeam.name : "No data" }}
       </h2>
@@ -42,14 +40,10 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "CalendarGrid",
-  props: {
-    events: {
-      type: Array,
-      required: true,
-    },
-  },
   data() {
     return {
       selectedEvent: null,
@@ -59,6 +53,12 @@ export default {
     showDetails(event) {
       this.selectedEvent = event;
     },
+  },
+  computed: {
+    ...mapState(["events"]),
+  },
+  created() {
+    this.$store.dispatch("fetchEvents");
   },
 };
 </script>
