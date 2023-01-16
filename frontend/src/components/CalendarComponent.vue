@@ -76,6 +76,7 @@ export default {
 </script>
 
 <style>
+/* styles for the events table */
 table {
   border-collapse: collapse;
   width: 100%;
@@ -100,6 +101,7 @@ tr:nth-child(even) {
   background-color: #ffc107;
 }
 
+/* styles for the selected event */
 .selected {
   background-color: #ffc107;
 }
@@ -125,6 +127,7 @@ tr:nth-child(even) {
   padding: 20px;
 }
 
+/* styles for the Add event button */
 .add-event-btn {
   background-color: #4caf50;
   color: white;
