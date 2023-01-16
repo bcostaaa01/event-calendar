@@ -7,9 +7,11 @@
           <th>Home Team</th>
           <th>Away Team</th>
           <th>Time</th>
+          <th>
+            <button class="add-button" @click="showForm = !showForm">+</button>
+          </th>
         </tr>
       </thead>
-
       <tbody>
         <tr v-for="event in events" :key="event.id" @click="showDetails(event)">
           <td>{{ event.dateVenue }}</td>
@@ -21,6 +23,19 @@
         </tr>
       </tbody>
     </table>
+    <div v-if="showForm" class="add-form">
+      <form @submit.prevent="addEvent">
+        <label for="date">Date:</label>
+        <input type="date" id="date" v-model="newEvent.date" required />
+        <label for="homeTeam">Home Team:</label>
+        <input type="text" id="homeTeam" v-model="newEvent.homeTeam" required />
+        <label for="awayTeam">Away Team:</label>
+        <input type="text" id="awayTeam" v-model="newEvent.awayTeam" required />
+        <label for="time">Time:</label>
+        <input type="time" id="time" v-model="newEvent.time" required />
+        <button type="submit">Add Event</button>
+      </form>
+    </div>
     <div v-if="selectedEvent" class="card">
       <h2>
         {{ selectedEvent.homeTeam ? selectedEvent.homeTeam.name : "No data" }}
@@ -29,15 +44,17 @@
       </h2>
       <p>Date: {{ selectedEvent.dateVenue }}</p>
       <p>Time: {{ selectedEvent.timeVenueUTC }}</p>
-      <p>Status: {{ selectedEvent.status }}</p>
-      <p>Stadium: {{ selectedEvent.stadium || "No data" }}</p>
       <p>
         Result: {{ selectedEvent.result.homeGoals }} :
         {{ selectedEvent.result.awayGoals }}
       </p>
-    </div>
-    <div>
-      <button @click="addEvent" class="add-event-btn">Add an event</button>
+      <p>
+        Yellow cards:
+        {{ yellowCards }}
+      </p>
+      <p>Second yellow cards: {{ secondYellowCards }}</p>
+      <p>Direct red cards: {{ directRedCards }}</p>
+      <p>Championship: {{ selectedEvent.originCompetitionName }}</p>
     </div>
   </div>
 </template>
@@ -49,6 +66,13 @@ export default {
   name: "CalendarGrid",
   data() {
     return {
+      newEvent: {
+        date: "",
+        homeTeam: "",
+        awayTeam: "",
+        time: "",
+      },
+      showForm: false,
       selectedEvent: null,
     };
   },
@@ -57,25 +81,66 @@ export default {
       this.selectedEvent = event;
     },
     addEvent() {
-      // Code to add event to the table
-      this.events.push({
-        dateVenue: "10-10-2023",
-        homeTeam: { name: "Benfica" },
-        awayTeam: { name: "Porto" },
-        timeVenueUTC: "20:00:00",
-      });
+      this.events.push(this.newEvent);
+      this.newEvent = {
+        date: "",
+        homeTeam: "",
+        awayTeam: "",
+        time: "",
+      };
+      this.showForm = false;
     },
   },
   computed: {
     ...mapState(["events"]),
+    yellowCards() {
+      return this.selectedEvent
+        ? this.selectedEvent.result.yellowCards
+        : "No Data";
+    },
+    secondYellowCards() {
+      return this.selectedEvent
+        ? this.selectedEvent.result.secondYellowCards
+        : "No data";
+    },
+    directRedCards() {
+      return this.selectedEvent
+        ? this.selectedEvent.result.directRedCards
+        : "No Data";
+    },
   },
+
   created() {
     this.$store.dispatch("fetchEvents");
   },
 };
 </script>
 
-<style>
+<style scoped>
+.add-button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.add-form {
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.add-form label {
+  display: block;
+}
+
 /* styles for the events table */
 table {
   border-collapse: collapse;
