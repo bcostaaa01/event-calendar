@@ -36,6 +36,9 @@
         {{ selectedEvent.result.awayGoals }}
       </p>
     </div>
+    <div>
+      <button @click="addEvent" class="add-event-btn">Add an event</button>
+    </div>
   </div>
 </template>
 
@@ -52,6 +55,15 @@ export default {
   methods: {
     showDetails(event) {
       this.selectedEvent = event;
+    },
+    addEvent() {
+      // Code to add event to the table
+      this.events.push({
+        dateVenue: "10-10-2023",
+        homeTeam: { name: "Benfica" },
+        awayTeam: { name: "Porto" },
+        timeVenueUTC: "20:00:00",
+      });
     },
   },
   computed: {
@@ -111,5 +123,19 @@ tr:nth-child(even) {
 
 .card-body {
   padding: 20px;
+}
+
+.add-event-btn {
+  background-color: #4caf50;
+  color: white;
+  margin-top: 15px;
+  padding: 8px;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+
+.add-event-btn:hover {
+  background-color: #3e8e41;
 }
 </style>
