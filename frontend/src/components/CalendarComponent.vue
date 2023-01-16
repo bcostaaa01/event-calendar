@@ -93,10 +93,10 @@ tr:nth-child(even) {
   transition: 0.3s;
   width: 50%;
   margin: auto;
-  margin-top: 20px; /* this will add a margin on the top of the card */
-  margin-bottom: 20px; /* this will add a margin on the bottom of the card */
-  margin-left: 20px; /* this will add a margin on the left of the card */
-  margin-right: 20px; /* this will add a margin on */
+  margin-top: 20px; 
+  margin-bottom: 20px; 
+  margin-left: 20px; 
+  margin-right: 20px; 
 }
 
 .card-header {
