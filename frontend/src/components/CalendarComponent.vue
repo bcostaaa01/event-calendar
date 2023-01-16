@@ -93,10 +93,7 @@ tr:nth-child(even) {
   transition: 0.3s;
   width: 50%;
   margin: auto;
-  margin-top: 20px; 
-  margin-bottom: 20px; 
-  margin-left: 20px; 
-  margin-right: 20px; 
+  margin-top: 50px; 
 }
 
 .card-header {
