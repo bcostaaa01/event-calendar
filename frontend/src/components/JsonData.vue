@@ -1,14 +1,15 @@
 <template>
   <div>
-    <vue-cal
-      :events="events"
-      selected-date="2022-02-03"
-      :time="false"
-      :disable-views="['years', 'year', 'month']"
-      hide-weekends
-    ></vue-cal>
-    <!-- {{ this.$store.state.events }} -->
-    <!-- <div v-for="event in this.$store.state.events" :key="event.id">
+    <div>
+      <vue-cal
+        :events="events"
+        selected-date="2022-02-03"
+        :time="false"
+        :disable-views="['years', 'year', 'month']"
+        hide-weekends
+      ></vue-cal>
+      <!-- {{ this.$store.state.events }} -->
+      <!-- <div v-for="event in this.$store.state.events" :key="event.id">
       <ul>
         <li style="padding: 20px; margin: 20px; background-color: lightGray">
           <p>Season: {{ event.season }}</p>
@@ -23,21 +24,22 @@
         </li>
       </ul>
     </div> -->
-  </div>
-  <div v-for="event in formattedEvents" :key="event.id">
-    <td>
-      <tr style="padding: 20px; margin: 20px; background-color: lightGray">
-        <p>Season: {{ event.season }}</p>
-        <p>Date: {{ event.date }}</p>
-        <p v-if="event.homeTeam">Home Team: {{ event.homeTeam.name }}</p>
-        <p v-if="event.awayTeam">Away Team: {{ event.awayTeam.name }}</p>
-        <p>Goals (home team): {{ event.homeGoals }}</p>
-        <p>Goals (away team): {{ event.awayGoals }}</p>
-        <p>Yellow Cards: {{ event.yellowCards }}</p>
-        <p>Red Cards: {{ event.redCards }}</p>
-        <p>Competition: {{ event.competition }}</p>
-      </tr>
-    </td>
+    </div>
+    <div v-for="event in formattedEvents" :key="event.id">
+      <td>
+        <tr style="padding: 20px; margin: 20px; background-color: lightGray">
+          <p>Season: {{ event.season }}</p>
+          <p>Date: {{ event.date }}</p>
+          <p v-if="event.homeTeam">Home Team: {{ event.homeTeam.name }}</p>
+          <p v-if="event.awayTeam">Away Team: {{ event.awayTeam.name }}</p>
+          <p>Goals (home team): {{ event.homeGoals }}</p>
+          <p>Goals (away team): {{ event.awayGoals }}</p>
+          <p>Yellow Cards: {{ event.yellowCards }}</p>
+          <p>Red Cards: {{ event.redCards }}</p>
+          <p>Competition: {{ event.competition }}</p>
+        </tr>
+      </td>
+    </div>
   </div>
 </template>
 

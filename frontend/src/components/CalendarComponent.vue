@@ -13,9 +13,9 @@
       <tbody>
         <tr v-for="event in events" :key="event.id" @click="showDetails(event)">
           <td>{{ event.dateVenue }}</td>
-          <td>{{ (event.homeTeam && event.homeTeam.name) || "No data" }}</td>
+          <td>{{ event.homeTeam ? event.homeTeam.name : "No data" }}</td>
           <td>
-            {{ (event.awayTeam.name && event.awayTeam.name) || "No data" }}
+            {{ event.awayTeam ? event.awayTeam.name : "No data" }}
           </td>
           <td>{{ event.timeVenueUTC }}</td>
         </tr>
@@ -23,12 +23,16 @@
     </table>
     <div v-if="selectedEvent" class="card">
       <h2>
-        {{ selectedEvent.homeTeam.name }} vs {{ selectedEvent.awayTeam.name }}
+        {{
+          selectedEvent.homeTeam ? selectedEvent.homeTeam.name : "No data"
+        }}
+        vs
+        {{ selectedEvent.awayTeam ? selectedEvent.awayTeam.name : "No data" }}
       </h2>
       <p>Date: {{ selectedEvent.dateVenue }}</p>
       <p>Time: {{ selectedEvent.timeVenueUTC }}</p>
       <p>Status: {{ selectedEvent.status }}</p>
-      <p>Stadium: {{ selectedEvent.stadium }}</p>
+      <p>Stadium: {{ selectedEvent.stadium || "No data" }}</p>
       <p>
         Result: {{ selectedEvent.result.homeGoals }} :
         {{ selectedEvent.result.awayGoals }}
