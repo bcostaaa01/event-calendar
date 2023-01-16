@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <EventCalendar />
+    <!-- <EventCalendar /> -->
     <!-- <JsonData /> -->
+    <SportsEvents />
   </div>
 </template>
 
@@ -9,12 +10,14 @@
 // @ is an alias to /src
 import EventCalendar from "@/components/EventCalendar.vue";
 import JsonData from "@/components/JsonData.vue";
+import SportsEvents from "@/components/SportsEvents.vue";
 
 export default {
   name: "HomeView",
   components: {
     EventCalendar,
-    JsonData
+    JsonData,
+    SportsEvents
   },
 };
 </script>
