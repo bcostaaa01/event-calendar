@@ -5,7 +5,11 @@
       This application shows data from sports events fetched from a backend of
       JSON data. It was built using Vue 3, Vuex, NodeJS and ExpressJS.
     </p>
-    <img class="gif" src="https://j.gifs.com/y0wkkB.gif" alt="champions league gif" />
+    <img
+      class="gif"
+      src="https://j.gifs.com/y0wkkB.gif"
+      alt="champions league gif"
+    />
   </div>
 </template>
 
