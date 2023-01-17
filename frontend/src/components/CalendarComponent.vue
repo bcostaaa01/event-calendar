@@ -50,7 +50,7 @@
       </p>
       <p>
         Yellow cards:
-        {{ yellowCards }}
+        {{ yellowCards === "" ? "No Data" : yellowCards }}
       </p>
       <p>Second yellow cards: {{ secondYellowCards }}</p>
       <p>Direct red cards: {{ directRedCards }}</p>
@@ -94,22 +94,16 @@ export default {
   computed: {
     ...mapState(["events"]),
     yellowCards() {
-      if (!this.selectedEvent) return "No Data";
-      return this.selectedEvent.result.yellowCards.length
-        ? this.selectedEvent.result.yellowCards
-        : "No Data";
+        if(!this.selectedEvent) return "No Data";
+        return this.selectedEvent.result.yellowCards.length ? this.selectedEvent.result.yellowCards : "No Data";
     },
     secondYellowCards() {
-      if (!this.selectedEvent) return "No Data";
-      return this.selectedEvent.result.secondYellowCards.length
-        ? this.selectedEvent.result.secondYellowCards
-        : "No Data";
+        if(!this.selectedEvent) return "No Data";
+        return this.selectedEvent.result.secondYellowCards.length ? this.selectedEvent.result.secondYellowCards : "No Data";
     },
     directRedCards() {
-      if (!this.selectedEvent) return "No Data";
-      return this.selectedEvent.result.directRedCards.length
-        ? this.selectedEvent.result.directRedCards
-        : "No Data";
+        if(!this.selectedEvent) return "No Data";
+        return this.selectedEvent.result.directRedCards.length ? this.selectedEvent.result.directRedCards : "No Data";
     },
   },
 
