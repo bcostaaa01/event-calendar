@@ -127,6 +127,12 @@ export default {
 </script>
 
 <style scoped>
+/* styles for responsiveness */
+@media (max-width: 600px) {
+  /* Add styles for screens smaller than 600px */
+}
+
+/* styles for the add button */
 .add-button {
   background-color: #4caf50;
   border: none;
@@ -138,6 +144,10 @@ export default {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #205a22;
 }
 
 .add-form {
@@ -200,20 +210,5 @@ tr:nth-child(even) {
 
 .card-body {
   padding: 20px;
-}
-
-/* styles for the Add event button */
-.add-event-btn {
-  background-color: #4caf50;
-  color: white;
-  margin-top: 15px;
-  padding: 8px;
-  text-align: center;
-  border: none;
-  cursor: pointer;
-}
-
-.add-event-btn:hover {
-  background-color: #3e8e41;
 }
 </style>
