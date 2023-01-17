@@ -81,7 +81,14 @@ export default {
       this.selectedEvent = event;
     },
     addEvent() {
-      this.events.push(this.newEvent);
+      const newEvent = {
+        id: this.events.length + 1,
+        dateVenue: this.newEvent.date,
+        homeTeam: { name: this.newEvent.homeTeam },
+        awayTeam: { name: this.newEvent.awayTeam },
+        timeVenueUTC: this.newEvent.time,
+      };
+      this.events.push(newEvent);
       this.newEvent = {
         date: "",
         homeTeam: "",
@@ -94,16 +101,22 @@ export default {
   computed: {
     ...mapState(["events"]),
     yellowCards() {
-        if(!this.selectedEvent) return "No Data";
-        return this.selectedEvent.result.yellowCards.length ? this.selectedEvent.result.yellowCards : "No Data";
+      if (!this.selectedEvent || !this.selectedEvent.result) return "No Data";
+      return this.selectedEvent.result.yellowCards.length
+        ? this.selectedEvent.result.yellowCards
+        : "No Data";
     },
     secondYellowCards() {
-        if(!this.selectedEvent) return "No Data";
-        return this.selectedEvent.result.secondYellowCards.length ? this.selectedEvent.result.secondYellowCards : "No Data";
+      if (!this.selectedEvent || !this.selectedEvent.result) return "No Data";
+      return this.selectedEvent.result.secondYellowCards.length
+        ? this.selectedEvent.result.secondYellowCards
+        : "No Data";
     },
     directRedCards() {
-        if(!this.selectedEvent) return "No Data";
-        return this.selectedEvent.result.directRedCards.length ? this.selectedEvent.result.directRedCards : "No Data";
+      if (!this.selectedEvent || !this.selectedEvent.result) return "No Data";
+      return this.selectedEvent.result.directRedCards.length
+        ? this.selectedEvent.result.directRedCards
+        : "No Data";
     },
   },
 
