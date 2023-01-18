@@ -7,9 +7,6 @@
           <th>Home Team</th>
           <th>Away Team</th>
           <th>Time</th>
-          <th>
-            <button class="add-button" @click="showForm = !showForm">+</button>
-          </th>
         </tr>
       </thead>
       <tbody>
@@ -23,19 +20,7 @@
         </tr>
       </tbody>
     </table>
-    <div v-if="showForm" class="add-form">
-      <form @submit.prevent="addEvent">
-        <label for="date">Date:</label>
-        <input type="date" id="date" v-model="newEvent.date" required />
-        <label for="homeTeam">Home Team:</label>
-        <input type="text" id="homeTeam" v-model="newEvent.homeTeam" required />
-        <label for="awayTeam">Away Team:</label>
-        <input type="text" id="awayTeam" v-model="newEvent.awayTeam" required />
-        <label for="time">Time:</label>
-        <input type="time" id="time" v-model="newEvent.time" required />
-        <button type="submit">Add Event</button>
-      </form>
-    </div>
+
     <div v-if="selectedEvent" class="card">
       <h2>
         {{ selectedEvent.homeTeam ? selectedEvent.homeTeam.name : "No data" }}
@@ -66,36 +51,12 @@ export default {
   name: "CalendarGrid",
   data() {
     return {
-      newEvent: {
-        date: "",
-        homeTeam: "",
-        awayTeam: "",
-        time: "",
-      },
-      showForm: false,
       selectedEvent: null,
     };
   },
   methods: {
     showDetails(event) {
       this.selectedEvent = event;
-    },
-    addEvent() {
-      const newEvent = {
-        id: this.events.length + 1,
-        dateVenue: this.newEvent.date,
-        homeTeam: { name: this.newEvent.homeTeam },
-        awayTeam: { name: this.newEvent.awayTeam },
-        timeVenueUTC: this.newEvent.time,
-      };
-      this.events.push(newEvent);
-      this.newEvent = {
-        date: "",
-        homeTeam: "",
-        awayTeam: "",
-        time: "",
-      };
-      this.showForm = false;
     },
   },
   computed: {
@@ -122,7 +83,12 @@ export default {
 
   created() {
     this.$store.dispatch("fetchEvents");
-  },
+},
+computed: {
+    ...mapState(["events"])
+}
+
+
 };
 </script>
 

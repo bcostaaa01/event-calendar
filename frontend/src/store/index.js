@@ -4,6 +4,12 @@ import axios from "axios";
 export default createStore({
   state: {
     events: [],
+    newEvent: {
+      date: "",
+      homeTeam: "",
+      awayTeam: "",
+      time: "",
+    },
   },
   getters: {
     events: (state) => state.events,
@@ -11,7 +17,12 @@ export default createStore({
   mutations: {
     SET_EVENTS(state, events) {
       state.events = events;
-      
+    },
+    ADD_EVENT(state, event) {
+      state.events.push(event);
+    },
+    CLEAR_SELECTED_EVENT(state) {
+      state.selectedEvent = null;
     },
   },
   actions: {
@@ -23,6 +34,12 @@ export default createStore({
       } catch (error) {
         console.log(error);
       }
+    },
+    addEvent({ commit }, event) {
+      commit("ADD_EVENT", event);
+    },
+    clearSelectedEvent({ commit }) {
+      commit("CLEAR_SELECTED_EVENT");
     },
   },
   modules: {},
