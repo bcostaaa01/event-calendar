@@ -10,7 +10,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="event in events" :key="event.id" @click="showEventDetails(event)">
+        <tr
+          v-for="event in events"
+          :key="event.id"
+          @click="showEventDetails(event)"
+        >
           <td>{{ event.dateVenue }}</td>
           <td>{{ event.homeTeam ? event.homeTeam.name : "No data" }}</td>
           <td>
@@ -23,9 +27,12 @@
           :key="event.id"
           @click="showNewEventDetails(event)"
         >
-          {{
-            event
-          }}
+          <td>{{ event.dateVenue }}</td>
+          <td>{{ event.homeTeam }}</td>
+          <td>
+            {{ event.awayTeam }}
+          </td>
+          <td>{{ event.timeVenueUTC }}</td>
         </tr>
       </tbody>
     </table>
