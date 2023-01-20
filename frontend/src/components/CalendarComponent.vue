@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="event in events" :key="event.id" @click="showDetails(event)">
+        <tr v-for="event in events" :key="event.id" @click="showEventDetails(event)">
           <td>{{ event.dateVenue }}</td>
           <td>{{ event.homeTeam ? event.homeTeam.name : "No data" }}</td>
           <td>
@@ -18,7 +18,11 @@
           </td>
           <td>{{ event.timeVenueUTC }}</td>
         </tr>
-        <tr v-for="event in newEvents" :key="event.id">
+        <tr
+          v-for="event in newEvents"
+          :key="event.id"
+          @click="showNewEventDetails(event)"
+        >
           {{
             event
           }}
@@ -46,6 +50,9 @@
       <p>Direct red cards: {{ directRedCards }}</p>
       <p>Championship: {{ selectedEvent.originCompetitionName }}</p>
     </div>
+    <div v-if="selectedNewEvent" class="card">
+      {{ selectedNewEvent }}
+    </div>
   </div>
 </template>
 
@@ -57,11 +64,15 @@ export default {
   data() {
     return {
       selectedEvent: null,
+      selectedNewEvent: null,
     };
   },
   methods: {
-    showDetails(event) {
+    showEventDetails(event) {
       this.selectedEvent = event;
+    },
+    showNewEventDetails(event) {
+      this.selectedNewEvent = event;
     },
   },
   computed: {
