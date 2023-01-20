@@ -96,23 +96,17 @@ export default {
     },
   },
   watch: {
-    selectedEvent(newValue, oldValue) {
-      if (newValue && this.selectedEvent && this.selectedEvent == true) {
-        this.selectedNewEvent == false;
-        console.log("called the if in selectedEvent")
-      } else if (newValue && this.selectedEvent && this.selectedEvent == false) {
-        this.selectedNewEvent == true;
-        console.log("called the else if in selectedEvent")
+    selectedEvent(newValue) {
+      if (newValue) {
+        this.selectedNewEvent = false;
+        console.log("called the if in selectedEvent");
       }
     },
 
-    selectedNewEvent(newValue, oldValue) {
-      if (newValue && this.selectedNewEvent && this.selectedNewEvent == true) {
-        this.selectedEvent == false;
-        console.log("called the if in selectedEvent")
-      } else if (newValue && this.selectedNewEvent && this.selectedNewEvent == false) {
-        this.selectedEvent == false;
-        console.log("called the else if in selectedEvent")
+    selectedNewEvent(newValue) {
+      if (newValue) {
+        this.selectedEvent = false;
+        console.log("called the if in selectedEvent");
       }
     },
   },
