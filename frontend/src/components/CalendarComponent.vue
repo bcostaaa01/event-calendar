@@ -57,7 +57,7 @@
       <p>Direct red cards: {{ directRedCards }}</p>
       <p>Season: {{ selectedEvent.season }}</p>
       <p>Status: {{ selectedEvent.status }}</p>
-      <p>Stadium: {{ selectedEvent.stadium }}</p>
+      <p>Stadium: {{ selectedEvent.stadium || "No data" }}</p>
       <p>Championship: {{ selectedEvent.originCompetitionName }}</p>
     </div>
     <div v-if="selectedNewEvent" class="card">
