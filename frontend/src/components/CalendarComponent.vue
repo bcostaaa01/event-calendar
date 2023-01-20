@@ -58,7 +58,13 @@
       <p>Championship: {{ selectedEvent.originCompetitionName }}</p>
     </div>
     <div v-if="selectedNewEvent" class="card">
-      {{ selectedNewEvent }}
+      <h2>
+        {{ selectedNewEvent.homeTeam }}
+        vs
+        {{ selectedNewEvent.awayTeam }}
+      </h2>
+      <p>Date: {{ selectedNewEvent.dateVenue }}</p>
+      <p>Time: {{ selectedNewEvent.timeVenueUTC }}</p>
     </div>
   </div>
 </template>
