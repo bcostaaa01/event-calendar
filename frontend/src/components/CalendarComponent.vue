@@ -55,6 +55,9 @@
       </p>
       <p>Second yellow cards: {{ secondYellowCards }}</p>
       <p>Direct red cards: {{ directRedCards }}</p>
+      <p>Season: {{ selectedEvent.season }}</p>
+      <p>Status: {{ selectedEvent.status }}</p>
+      <p>Stadium: {{ selectedEvent.stadium }}</p>
       <p>Championship: {{ selectedEvent.originCompetitionName }}</p>
     </div>
     <div v-if="selectedNewEvent" class="card">
@@ -65,6 +68,10 @@
       </h2>
       <p>Date: {{ selectedNewEvent.dateVenue }}</p>
       <p>Time: {{ selectedNewEvent.timeVenueUTC }}</p>
+      <p>Season: {{ selectedNewEvent.season }}</p>
+      <p>Status: {{ selectedNewEvent.status }}</p>
+      <p>Stadium: {{ selectedNewEvent.stadium }}</p>
+      <p>Championship: {{ selectedNewEvent.originCompetitionName }}</p>
     </div>
   </div>
 </template>
@@ -86,6 +93,27 @@ export default {
     },
     showNewEventDetails(event) {
       this.selectedNewEvent = event;
+    },
+  },
+  watch: {
+    selectedEvent(newValue, oldValue) {
+      if (newValue && this.selectedEvent && this.selectedEvent == true) {
+        this.selectedNewEvent == false;
+        console.log("called the if in selectedEvent")
+      } else if (newValue && this.selectedEvent && this.selectedEvent == false) {
+        this.selectedNewEvent == true;
+        console.log("called the else if in selectedEvent")
+      }
+    },
+
+    selectedNewEvent(newValue, oldValue) {
+      if (newValue && this.selectedNewEvent && this.selectedNewEvent == true) {
+        this.selectedEvent == false;
+        console.log("called the if in selectedEvent")
+      } else if (newValue && this.selectedNewEvent && this.selectedNewEvent == false) {
+        this.selectedEvent == false;
+        console.log("called the else if in selectedEvent")
+      }
     },
   },
   computed: {

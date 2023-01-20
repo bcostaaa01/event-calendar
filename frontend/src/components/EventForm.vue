@@ -18,6 +18,23 @@
         required
       />
       <br />
+      <label for="season">Season: </label>
+      <input type="text" v-model="newEvent.season" id="season" required />
+      <br />
+      <label for="status">Status: </label>
+      <input type="text" v-model="newEvent.status" id="status" required />
+      <br />
+      <label for="stadium">Stadium: </label>
+      <input type="text" v-model="newEvent.stadium" id="stadium" required />
+      <br />
+      <label for="championship">Championship: </label>
+      <input
+        type="text"
+        v-model="newEvent.originCompetitionName"
+        id="championship"
+        required
+      />
+      <br />
       <button type="submit">Add Event</button>
     </form>
   </div>
@@ -28,10 +45,14 @@ export default {
   data() {
     return {
       newEvent: {
+        season: "",
+        status: "",
         homeTeam: "",
         awayTeam: "",
         dateVenue: "",
         timeVenueUTC: "",
+        stadium: "",
+        originCompetitionName: "",
       },
     };
   },
@@ -41,10 +62,14 @@ export default {
         this.$store.dispatch("addEvent", this.newEvent);
       }
       this.newEvent = {
+        season: "",
+        status: "",
         homeTeam: "",
         awayTeam: "",
         dateVenue: "",
         timeVenueUTC: "",
+        stadium: "",
+        originCompetitionName: "",
       };
     },
   },

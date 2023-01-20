@@ -16,6 +16,7 @@ export default createStore({
     },
     ADD_EVENT(state, newEvent) {
       state.newEvent.push(newEvent);
+      console.log(state.newEvent)
     },
     CLEAR_SELECTED_EVENT(state) {
       state.selectedEvent = null;
