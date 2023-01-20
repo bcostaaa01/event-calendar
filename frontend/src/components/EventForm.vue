@@ -34,13 +34,16 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["addEvent"]),
     onSubmit() {
-      this.$store.dispatch("addEvent", this.newEvent);
-      this.newEvent.homeTeam = "";
-      this.newEvent.awayTeam = "";
-      this.newEvent.dateVenue = "";
-      this.newEvent.timeVenueUTC = "";
+      if (Object.values(this.newEvent).filter((val) => val !== "").length) {
+        this.$store.dispatch("addEvent", this.newEvent);
+      }
+      this.newEvent = {
+        homeTeam: "",
+        awayTeam: "",
+        dateVenue: "",
+        timeVenueUTC: "",
+      };
     },
   },
 };
