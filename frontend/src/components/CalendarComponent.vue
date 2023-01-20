@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table>
+    <table id="events-table">
       <thead>
         <tr>
           <th>Date</th>
@@ -118,7 +118,7 @@ export default {
 }
 
 /* styles for the events table */
-table {
+#events-table {
   border-collapse: collapse;
   width: 100%;
 }

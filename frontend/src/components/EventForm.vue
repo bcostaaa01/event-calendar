@@ -19,8 +19,6 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "EventForm",
   data() {
