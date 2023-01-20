@@ -18,6 +18,11 @@
           </td>
           <td>{{ event.timeVenueUTC }}</td>
         </tr>
+        <tr v-for="event in newEvents" :key="event.id">
+          {{
+            event
+          }}
+        </tr>
       </tbody>
     </table>
 
@@ -61,6 +66,14 @@ export default {
   },
   computed: {
     ...mapState(["events"]),
+    ...mapState(["newEvent"]),
+    events() {
+      console.log(this.$store.state.events);
+      return this.$store.state.events;
+    },
+    newEvents() {
+      return this.$store.state.newEvent;
+    },
     yellowCards() {
       if (!this.selectedEvent || !this.selectedEvent.result) return "No Data";
       return this.selectedEvent.result.yellowCards.length
@@ -83,12 +96,7 @@ export default {
 
   created() {
     this.$store.dispatch("fetchEvents");
-},
-computed: {
-    ...mapState(["events"])
-}
-
-
+  },
 };
 </script>
 
@@ -96,35 +104,6 @@ computed: {
 /* styles for responsiveness */
 @media (max-width: 600px) {
   /* Add styles for screens smaller than 600px */
-}
-
-/* styles for the add button */
-.add-button {
-  background-color: #4caf50;
-  border: none;
-  color: white;
-  padding: 5px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-.add-button:hover {
-  background-color: #205a22;
-}
-
-.add-form {
-  background-color: #f2f2f2;
-  padding: 20px;
-  margin-top: 20px;
-  text-align: center;
-}
-
-.add-form label {
-  display: block;
 }
 
 /* styles for the events table */

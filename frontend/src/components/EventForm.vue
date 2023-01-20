@@ -2,13 +2,18 @@
   <div>
     <form @submit.prevent="onSubmit">
       <label for="date">Date:</label>
-      <input type="date" id="date" v-model="newEvent.date" required />
+      <input type="date" v-model="newEvent.dateVenue" id="dateVenue" required />
       <label for="homeTeam">Home Team:</label>
-      <input type="text" id="homeTeam" v-model="newEvent.homeTeam" required />
+      <input type="text" v-model="newEvent.homeTeam" id="homeTeam" required />
       <label for="awayTeam">Away Team:</label>
-      <input type="text" id="awayTeam" v-model="newEvent.awayTeam" required />
+      <input type="text" v-model="newEvent.awayTeam" id="awayTeam" required />
       <label for="time">Time:</label>
-      <input type="time" id="time" v-model="newEvent.time" required />
+      <input
+        type="time"
+        v-model="newEvent.timeVenueUTC"
+        id="timeVenueUTC"
+        required
+      />
       <button type="submit">Add Event</button>
     </form>
   </div>
@@ -21,23 +26,21 @@ export default {
   data() {
     return {
       newEvent: {
-        date: "",
         homeTeam: "",
         awayTeam: "",
-        time: "",
+        dateVenue: "",
+        timeVenueUTC: "",
       },
     };
   },
   methods: {
     ...mapActions(["addEvent"]),
-    resetForm() {
-      this.newEvent = {};
-    },
     onSubmit() {
-      this.addEvent(this.newEvent);
-      this.resetForm();
-      this.$store.dispatch("fetchEvents");
-      this.$router.push({ path: "/" });
+      this.$store.dispatch("addEvent", this.newEvent);
+      this.newEvent.homeTeam = "";
+      this.newEvent.awayTeam = "";
+      this.newEvent.dateVenue = "";
+      this.newEvent.timeVenueUTC = "";
     },
   },
 };
