@@ -57,6 +57,43 @@ npm run serve
 
 ### 📐 Code Design and Architecture
 
+The project was built under the following architecture:
+
+```javascript
+event-calendar/
+├── backend/
+│   └── server.js
+|   └── sportData.json
+└── frontend/
+    ├── src/
+    │   ├── CalendarComponent.vue
+    │   ├── EventForm.vue
+    │   ├── ui/
+    │   │   └── Heading.vue
+    │   ├── store/
+    │   │   └── index.js
+    │   ├── views/
+    │   │   ├── HomeView.vue
+    │   │   ├── AboutView.vue
+    │   │   └── EventView.vue
+    │   ├── router/
+    │   │   └── index.js
+    │   ├── App.vue
+    │   └── main.js
+
+```
+
+🏛 The architecture described in the previous code snippet follows best practices and good design principles in the following ways:
+
+- It separates the backend and frontend code into distinct folders, making it easy to understand the different responsibilities of the codebase and navigate it.
+- The frontend code is further organized by grouping related components, views and functionality such as `CalendarComponent.vue`, `EventForm.vue` and `Heading.vue` into the same folder. This makes it easy to locate and understand the different parts of the application.
+- The `ui` folder contains reusable UI components, which promotes code reusability and a consistent design across the application.
+- The store and router folders contain the Vuex `store` and Vue `Router` configuration, respectively. This makes it easy to understand how the state management and routing works in the application.
+- The `App.vue` is the root Vue component, this is the entry point for the Vue application and makes it easy to understand the structure of the application
+- The `main.js` file is the entry point for the application, this makes it easy to understand the overall flow of the application.
+
+This architecture also allows for easy scalability and maintenance of the codebase as it separates the different concerns of the application and follows the best practices for organization, reusability and maintainability.
+
 #### Frontend
 
 ##### `CalendarComponent.vue`
