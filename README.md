@@ -93,11 +93,15 @@ The store uses the `axios` library to make an `HTTP` request to a `localhost` se
 #### 🔩 Backend
 
 ##### `server.js`
+    
+The server uses the `helmet()` middleware to add security-related `HTTP` headers to the response, helping protect the server from various security vulnerabilities.
 
-This is the Node.js Express server that listens on `port 3000` and uses the `cors` `middleware` to handle `cross-origin resource sharing (CORS)`. 
+The server reads the `sportData.json` file only once, improving the performance of the server by not having to read the file multiple times.
 
-When the server receives a `GET` request to the `'/events'` endpoint, it reads a JSON file containing event data, and sends the data back to the client in the response. 
+The server uses an `environment variable` to set the `port` number, allowing for easy configuration of the server without having to hardcode the port number.
 
-The `app.listen()` method starts the server and logs a message to the console when it is ready to receive requests.
+The server includes a global `error handling middleware` that will handle any unexpected errors in the routes, allowing for the server to continue running even if a route throws an error and also providing a useful message to the client.
 
-The frontend fetches the events data to display it in the table of events in `CalendarComponent.vue`.
+The server uses an `express()` Router to handle the `/events` route and make the code more modular, making the code easier to read and maintain.
+
+The frontend fetches the events data from `server.js` to display it in the table of events in `CalendarComponent.vue`.
