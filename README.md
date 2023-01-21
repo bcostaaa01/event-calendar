@@ -1,4 +1,5 @@
-# event-calendar
+# 🗓 Event Calendar
+
 Full stack app that renders data from a JSON file in a calendar-alike component.
 
 # Cloning the repo and running it locally
@@ -42,7 +43,7 @@ node server.js
 
 👏 Server.js is now running on port 3000!
 
-# Frontend
+# 🎨 Frontend
 
 The frontend was built using Vue 3, Vuex and vue-router.
 
@@ -54,20 +55,49 @@ In order to run the frontend, run the following command:
 npm run serve
 ```
 
-### Code Design explanation
+### 📐 Code Design and Architecture
 
-This is a Vue.js component that renders a table of events. Each event has a date, a home team, an away team, and a time. The component also includes a button that can be used to toggle the visibility of a form that can be used to add new events to the table.
+#### Frontend
 
-The `template` of the component starts by rendering a table, with a header that includes a button with the "+" label. The button has a `@click` event listener, which triggers the toggle of the `showForm` data property.
+##### `CalendarComponent.vue`
 
-The table's body is populated by using a `v-for` directive to loop through an array of events, and for each event, it renders a table row. Each column of the row contains data properties of the event, such as the date, home team name, away team name and time, which are displayed using string interpolation. The row also has a `@click` event that triggers the `showDetails` method, passing the event as an argument.
+This is the component that displays a table of events in a calendar format. 
 
-The component also includes a `div` element that is rendered if the `showForm` data property is true. This `div` contains a form that allows the user to add new events. The form has several input fields for date, home team, away team and time, each of which is bound to a corresponding property of the `newEvent` data object. The form also has a submit button that, when clicked, triggers the `addEvent` method.
+The table uses the `v-for` directive to loop through an array of `event` objects, and each row has a `@click` event that calls a `function` to show the details of the selected event. The selected event is stored in the component's data and displayed in a separate section using the `v-if` directive. 
 
-The `addEvent` method creates a new object that represents the event, populates it with data from the form's input fields, and pushes it to the events array. It then resets the `newEvent` data object and sets the `showForm` data property to `false`, which hides the form.
+The same process applies for a `newEvent`, with a separate section displaying the details of the `newEvent`, but on the same `card` as the `events`.
 
-The component also includes another div element that is rendered if the selectedEvent data property is not null. This div displays detailed information of the selected event, such as the home team name, away team name, date, time, and result.
+The code also uses Vuex's `mapState` to map `state` properties to local component properties.
 
-The component uses the mapState utility from the Vuex library to map the events state to the component's computed properties.
+##### `EventForm.vue`
 
-The component also includes computed properties that give additional information about the selected event. The `yellowCards` computed property returns the number of yellow cards shown in the selected event. If no event is selected or if the event does not have the yellow cards information, the computed property returns "No Data". Similarly, the component has computed properties for second yellow cards, direct red cards and the championship name.
+This is the component that renders a form that allows users to add new events to the calendar table in `CalendarComponent.vue`. 
+
+The form uses `v-model` directives to bind the input fields to the `newEvent` object in the component's `data`. The form also has a `submit` event that calls the `onSubmit` method when the form is submitted. 
+
+The `onSubmit` method dispatches a Vuex `action` to add the `newEvent` to the `store` and then clears the `newEvent` object. 
+
+The form also checks if the input fields are not empty, and if the fields are not empty, it dispatches the `addEvent` action, which adds a new event to `newEvent`.
+
+##### `index.js` (store)
+
+The store of the project has the following properties and has been configured using the Vuex library bootstrapped uing the `vue-cli` on the `vue create frontend`:
+
+- `state`: which contains `events`, `newEvent`, and `selectedEvent` properties.
+- `getters`: which exposes the `events` and `newEvent` properties from the `state`.
+- `mutations`: which are responsible for changing the `state` in a predictable way. The `SET_EVENTS` mutation sets the `events` `state` property, the `ADD_EVENT` mutation pushes the `newEvent` to the `state`, and the `CLEAR_SELECTED_EVENT` mutation sets the `selectedEvent` property to `null`.
+- `actions`: which are responsible for handling the logic and `commit` mutations. The `fetchEvents` action makes an `HTTP` request to the server to fetch the `events` and then commits the `SET_EVENTS` mutation. The `addEvent` action commits the `ADD_EVENT` mutation and the `clearSelectedEvent` action commits the `CLEAR_SELECTED_EVENT` mutation.
+
+The store uses the `axios` library to make an `HTTP` request to a `localhost` server running on `port 3000` to fetch events data and it's listening on the `"/events"` endpoint. Then the data is committed to the `state`.
+
+#### 🔩 Backend
+
+##### `server.js`
+
+This is the Node.js Express server that listens on `port 3000` and uses the `cors` `middleware` to handle `cross-origin resource sharing (CORS)`. 
+
+When the server receives a `GET` request to the `'/events'` endpoint, it reads a JSON file containing event data, and sends the data back to the client in the response. 
+
+The `app.listen()` method starts the server and logs a message to the console when it is ready to receive requests.
+
+The frontend fetches the events data to display it in the table of events in `CalendarComponent.vue`.
