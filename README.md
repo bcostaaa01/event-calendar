@@ -18,7 +18,7 @@ npm install
 npm install
 ```
 
-# Backend
+# 🔮 Backend
 
 The backend was built using NodeJS and ExpressJS. 
 
