@@ -1,19 +1,20 @@
 <template>
   <div>
-    <table>
+    <table id="events-table">
       <thead>
         <tr>
           <th>Date</th>
           <th>Home Team</th>
           <th>Away Team</th>
           <th>Time</th>
-          <th>
-            <button class="add-button" @click="showForm = !showForm">+</button>
-          </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="event in events" :key="event.id" @click="showDetails(event)">
+        <tr
+          v-for="event in events"
+          :key="event.id"
+          @click="showEventDetails(event)"
+        >
           <td>{{ event.dateVenue }}</td>
           <td>{{ event.homeTeam ? event.homeTeam.name : "No data" }}</td>
           <td>
@@ -21,21 +22,21 @@
           </td>
           <td>{{ event.timeVenueUTC }}</td>
         </tr>
+        <tr
+          v-for="event in newEvents"
+          :key="event.id"
+          @click="showNewEventDetails(event)"
+        >
+          <td>{{ event.dateVenue }}</td>
+          <td>{{ event.homeTeam }}</td>
+          <td>
+            {{ event.awayTeam }}
+          </td>
+          <td>{{ event.timeVenueUTC }}</td>
+        </tr>
       </tbody>
     </table>
-    <div v-if="showForm" class="add-form">
-      <form @submit.prevent="addEvent">
-        <label for="date">Date:</label>
-        <input type="date" id="date" v-model="newEvent.date" required />
-        <label for="homeTeam">Home Team:</label>
-        <input type="text" id="homeTeam" v-model="newEvent.homeTeam" required />
-        <label for="awayTeam">Away Team:</label>
-        <input type="text" id="awayTeam" v-model="newEvent.awayTeam" required />
-        <label for="time">Time:</label>
-        <input type="time" id="time" v-model="newEvent.time" required />
-        <button type="submit">Add Event</button>
-      </form>
-    </div>
+
     <div v-if="selectedEvent" class="card">
       <h2>
         {{ selectedEvent.homeTeam ? selectedEvent.homeTeam.name : "No data" }}
@@ -54,7 +55,23 @@
       </p>
       <p>Second yellow cards: {{ secondYellowCards }}</p>
       <p>Direct red cards: {{ directRedCards }}</p>
+      <p>Season: {{ selectedEvent.season }}</p>
+      <p>Status: {{ selectedEvent.status }}</p>
+      <p>Stadium: {{ selectedEvent.stadium || "No data" }}</p>
       <p>Championship: {{ selectedEvent.originCompetitionName }}</p>
+    </div>
+    <div v-if="selectedNewEvent" class="card">
+      <h2>
+        {{ selectedNewEvent.homeTeam }}
+        vs
+        {{ selectedNewEvent.awayTeam }}
+      </h2>
+      <p>Date: {{ selectedNewEvent.dateVenue }}</p>
+      <p>Time: {{ selectedNewEvent.timeVenueUTC }}</p>
+      <p>Season: {{ selectedNewEvent.season }}</p>
+      <p>Status: {{ selectedNewEvent.status }}</p>
+      <p>Stadium: {{ selectedNewEvent.stadium }}</p>
+      <p>Championship: {{ selectedNewEvent.originCompetitionName }}</p>
     </div>
   </div>
 </template>
@@ -66,40 +83,43 @@ export default {
   name: "CalendarGrid",
   data() {
     return {
-      newEvent: {
-        date: "",
-        homeTeam: "",
-        awayTeam: "",
-        time: "",
-      },
-      showForm: false,
       selectedEvent: null,
+      selectedNewEvent: null,
     };
   },
   methods: {
-    showDetails(event) {
+    showEventDetails(event) {
       this.selectedEvent = event;
     },
-    addEvent() {
-      const newEvent = {
-        id: this.events.length + 1,
-        dateVenue: this.newEvent.date,
-        homeTeam: { name: this.newEvent.homeTeam },
-        awayTeam: { name: this.newEvent.awayTeam },
-        timeVenueUTC: this.newEvent.time,
-      };
-      this.events.push(newEvent);
-      this.newEvent = {
-        date: "",
-        homeTeam: "",
-        awayTeam: "",
-        time: "",
-      };
-      this.showForm = false;
+    showNewEventDetails(event) {
+      this.selectedNewEvent = event;
+    },
+  },
+  watch: {
+    selectedEvent(newValue) {
+      if (newValue) {
+        this.selectedNewEvent = false;
+        console.log("called the if in selectedEvent");
+      }
+    },
+
+    selectedNewEvent(newValue) {
+      if (newValue) {
+        this.selectedEvent = false;
+        console.log("called the if in selectedEvent");
+      }
     },
   },
   computed: {
     ...mapState(["events"]),
+    ...mapState(["newEvent"]),
+    events() {
+      console.log(this.$store.state.events);
+      return this.$store.state.events;
+    },
+    newEvents() {
+      return this.$store.state.newEvent;
+    },
     yellowCards() {
       if (!this.selectedEvent || !this.selectedEvent.result) return "No Data";
       return this.selectedEvent.result.yellowCards.length
@@ -132,37 +152,8 @@ export default {
   /* Add styles for screens smaller than 600px */
 }
 
-/* styles for the add button */
-.add-button {
-  background-color: #4caf50;
-  border: none;
-  color: white;
-  padding: 5px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-.add-button:hover {
-  background-color: #205a22;
-}
-
-.add-form {
-  background-color: #f2f2f2;
-  padding: 20px;
-  margin-top: 20px;
-  text-align: center;
-}
-
-.add-form label {
-  display: block;
-}
-
 /* styles for the events table */
-table {
+#events-table {
   border-collapse: collapse;
   width: 100%;
 }

@@ -7,6 +7,7 @@ app.use(cors());
 
 app.get("/events", (req, res) => {
   const events = require("./sportData.json");
+  console.log(events)
   res.json(events);
 });
 

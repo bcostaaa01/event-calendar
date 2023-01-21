@@ -1,17 +1,21 @@
 <template>
   <div class="home">
-    <SportsEvents />
+    <Calendar @event-added="fetchEvents" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import SportsEvents from "@/components/SportsEvents.vue";
+import { mapActions } from "vuex";
+import Calendar from "@/components/CalendarComponent.vue";
 
 export default {
   name: "HomeView",
   components: {
-    SportsEvents,
+    Calendar,
+  },
+  methods: {
+    ...mapActions(["fetchEvents"]),
   },
 };
 </script>
