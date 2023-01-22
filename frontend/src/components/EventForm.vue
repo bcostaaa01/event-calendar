@@ -93,5 +93,6 @@ export default {
   border: none;
   font-size: 18px;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 </style>
