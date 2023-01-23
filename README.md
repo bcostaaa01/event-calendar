@@ -142,3 +142,7 @@ The server includes a global `error handling middleware` that will handle any un
 The server uses an `express()` Router to handle the `/events` route and make the code more modular, making the code easier to read and maintain.
 
 The frontend fetches the events data from `server.js` to display it in the table of events in `CalendarComponent.vue`.
+
+### 🚧 Under development:
+
+- 🌕☀️ dark mode toggle feature (https://github.com/bcostaaa01/event-calendar/pull/6)
