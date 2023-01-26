@@ -120,7 +120,7 @@ The form also checks if the input fields are not empty, and if the fields are no
 
 The store of the project has the following properties and has been configured using the Vuex library bootstrapped uing the `vue-cli` on the `vue create frontend`:
 
-- `state`: which contains `events`, `newEvent`, and `selectedEvent` properties.
+- `state`: which contains `events` and `newEvent`
 - `getters`: which exposes the `events` and `newEvent` properties from the `state`.
 - `mutations`: which are responsible for changing the `state` in a predictable way. The `SET_EVENTS` mutation sets the `events` `state` property, the `ADD_EVENT` mutation pushes the `newEvent` to the `state`, and the `CLEAR_SELECTED_EVENT` mutation sets the `selectedEvent` property to `null`.
 - `actions`: which are responsible for handling the logic and `commit` mutations. The `fetchEvents` action makes an `HTTP` request to the server to fetch the `events` and then commits the `SET_EVENTS` mutation. The `addEvent` action commits the `ADD_EVENT` mutation and the `clearSelectedEvent` action commits the `CLEAR_SELECTED_EVENT` mutation.
