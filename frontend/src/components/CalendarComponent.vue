@@ -106,7 +106,7 @@ export default {
     selectedNewEvent(newValue) {
       if (newValue) {
         this.selectedEvent = false;
-        console.log("called the if in selectedEvent");
+        console.log("called the if in selectedNewEvent");
       }
     },
   },
