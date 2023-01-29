@@ -16,5 +16,6 @@
 .gif {
   width: 60%;
   height: 60%;
+  margin-bottom: 20px;
 }
 </style>
